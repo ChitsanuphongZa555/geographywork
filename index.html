@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>รายการข้อมูล</title>
+</head>
+<body>
+    <h1>รายการสินค้า</h1>
+    <ul>
+        {% for item in items %}
+        <li>{{ item.name }} - {{ item.price }} บาท</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
