@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>Landmarksทั่วโลก</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+
+        .item-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f8f9fa;
+            padding: 18px 20px;
+            border-radius: 10px;
+            margin-bottom: 12px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border-left: 4px solid #667eea;
+        }
+
+        .item-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        }
+
+        .item-name {
+            font-size: 17px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .item-price {
+            font-size: 17px;
+            font-weight: 700;
+            color: #667eea;
+            background: #eef0ff;
+            padding: 6px 14px;
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📦 รายการสินค้า</h1>
+        {% for item in items %}
+        <div class="item-card">
+            <span class="item-name">{{ item.name }}</span>
+            <span class="item-price">{{ item.price }} บาท</span>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
