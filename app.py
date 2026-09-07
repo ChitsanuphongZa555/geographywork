@@ -7,7 +7,7 @@ places = [
         "name": "หอไอเฟล",
         "province": "ปารีส, ฝรั่งเศส",
         "description": "สัญลักษณ์ของกรุงปารีส หอคอยเหล็กสูง 330 เมตร วิวเมืองสวยที่สุดตอนพระอาทิตย์ตก",
-        "image": "https://images.unsplash.com/photo-1543349689-9a4d426bee8e?w=500",
+        "image": "https://th.wikipedia.org/wiki/%E0%B8%AB%E0%B8%AD%E0%B9%84%E0%B8%AD%E0%B9%80%E0%B8%9F%E0%B8%A5",
         "lat": 48.8584,
         "lng": 2.2945
     },
