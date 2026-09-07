@@ -1,0 +1,12 @@
+import matplotlib.pyplot as plt
+m=['1','2','3','4','5','6']
+s=[120,130,140,135,145,150]
+l=[110,115,120,125,130,135]
+
+plt.plot(m,s,color='orange',label='Shopee Price',marker='o')
+plt.plot(m,l,color='blue',label='Lazada Price',marker='o')
+plt.title('Shopee vs Lazada')
+plt.xlabel('month')
+plt.ylabel('Price')
+plt.legend()
+plt.show()
