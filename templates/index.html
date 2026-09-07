@@ -2,7 +2,12 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-    <title>Landmarkทั่วโลก</title>
+    <title>แนะนำสถานที่ท่องเที่ยว</title>
+
+    <!-- Leaflet CSS/JS (แผนที่ฟรี ไม่ต้องขอ API Key) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
     <style>
         * {
             margin: 0;
@@ -20,7 +25,7 @@
         .header {
             text-align: center;
             color: white;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
         }
 
         .header h1 {
@@ -31,6 +36,31 @@
         .header p {
             font-size: 16px;
             opacity: 0.9;
+        }
+
+        #map {
+            max-width: 1100px;
+            height: 420px;
+            margin: 0 auto 40px auto;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+            z-index: 1;
+        }
+
+        .popup-content {
+            text-align: center;
+        }
+
+        .popup-content img {
+            width: 100%;
+            border-radius: 8px;
+            margin-bottom: 6px;
+        }
+
+        .popup-content h3 {
+            font-size: 15px;
+            color: #185a9d;
+            margin-bottom: 4px;
         }
 
         .grid {
@@ -90,10 +120,14 @@
 </head>
 <body>
     <div class="header">
-        <h1>🏖️ แนะนำ Landmarkทั่วโลก</h1>
-        <p>รวมสถานที่ท่องเที่ยว Landmarks ทั่วโลก</p>
+        <h1>🌍 แลนด์มาร์กทั่วโลก</h1>
+        <p>รวมสถานที่ท่องเที่ยวและแลนด์มาร์กชื่อดังทั่วโลก — กดหมุดบนแผนที่เพื่อดูรายละเอียด</p>
     </div>
 
+    <!-- แผนที่ -->
+    <div id="map"></div>
+
+    <!-- การ์ดรายละเอียด -->
     <div class="grid">
         {% for place in places %}
         <div class="card">
@@ -106,5 +140,30 @@
         </div>
         {% endfor %}
     </div>
+
+    <script>
+        // สร้างแผนที่ ตั้งจุดกึ่งกลางที่ประเทศไทย
+        const map = L.map('map').setView([20, 20], 2);
+
+        // ใส่ tile layer จาก OpenStreetMap (ฟรี)
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        // ข้อมูลสถานที่จาก Flask (ส่งมาเป็น JSON)
+        const places = {{ places | tojson }};
+
+        // ปักหมุดทุกสถานที่
+        places.forEach(place => {
+            const marker = L.marker([place.lat, place.lng]).addTo(map);
+            marker.bindPopup(`
+                <div class="popup-content">
+                    <img src="${place.image}" alt="${place.name}">
+                    <h3>${place.name}</h3>
+                    <p>${place.province}</p>
+                </div>
+            `);
+        });
+    </script>
 </body>
 </html>
