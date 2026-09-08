@@ -7,7 +7,7 @@ places = [
         "name": "Temple of the Emerald Buddha (วัดพระแก้ว)",
         "province": "Bangkok, Thailand",
         "description": "วัดคู่บ้านคู่เมือง ประดิษฐานพระแก้วมรกต สถาปัตยกรรมงดงามอลังการ",
-        "image": "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=500",
+        "image": "https://images.unsplash.com/photo-1563492065599-3520f775eeed?w=500",
         "lat": 13.7515,
         "lng": 100.4927
     },
@@ -23,7 +23,7 @@ places = [
         "name": "Eiffel Tower (หอไอเฟล)",
         "province": "Paris, France",
         "description": "สัญลักษณ์ของกรุงปารีส หอคอยเหล็กสูง 330 เมตร วิวเมืองสวยที่สุดตอนพระอาทิตย์ตก",
-        "image": "https://images.unsplash.com/photo-1543349689-9a4d426bee8e?w=500",
+        "image": "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=500",
         "lat": 48.8584,
         "lng": 2.2945
     },
@@ -31,7 +31,7 @@ places = [
         "name": "Sydney Opera House (โรงอุปรากรซิดนีย์)",
         "province": "Sydney, Australia",
         "description": "อาคารสถาปัตยกรรมรูปเปลือกหอยอันโด่งดัง สัญลักษณ์ของประเทศออสเตรเลีย",
-        "image": "https://images.unsplash.com/photo-1524293581917-878a6d017c71?w=500",
+        "image": "https://images.unsplash.com/photo-1523059623039-a9ed027e7fad?w=500",
         "lat": -33.8568,
         "lng": 151.2153
     },
@@ -39,7 +39,7 @@ places = [
         "name": "Leaning Tower of Pisa (หอเอนเมืองปิซ่า)",
         "province": "Pisa, Italy",
         "description": "หอระฆังเอียงชื่อดัง เกิดจากฐานรากที่ไม่มั่นคง กลายเป็นแลนด์มาร์กที่มีเอกลักษณ์ที่สุดในโลก",
-        "image": "https://images.unsplash.com/photo-1543429257-16d1e5cf2fd7?w=500",
+        "image": "https://images.unsplash.com/photo-1531572753322-ad063cecc140?w=500",
         "lat": 43.7230,
         "lng": 10.3966
     },
@@ -63,7 +63,7 @@ places = [
         "name": "Statue of Liberty (เทพีเสรีภาพ)",
         "province": "New York, USA",
         "description": "สัญลักษณ์แห่งอิสรภาพและประชาธิปไตย ตั้งอยู่บนเกาะกลางอ่าวนิวยอร์ก",
-        "image": "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=500",
+        "image": "https://images.unsplash.com/photo-1543716091-a840c05249ec?w=500",
         "lat": 40.6892,
         "lng": -74.0445
     },
@@ -71,7 +71,7 @@ places = [
         "name": "Angkor Wat (นครวัด)",
         "province": "Siem Reap, Cambodia",
         "description": "ปราสาทหินโบราณที่ใหญ่ที่สุดในโลก สถาปัตยกรรมขอมอันวิจิตรงดงาม มรดกโลกของยูเนสโก",
-        "image": "https://images.unsplash.com/photo-1600100397608-f440db54366b?w=500",
+        "image": "https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=500",
         "lat": 13.4125,
         "lng": 103.8670
     },

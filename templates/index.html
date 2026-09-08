@@ -21,7 +21,6 @@
             min-height: 100vh;
         }
 
-        /* Navbar แบบ Apple */
         .navbar {
             position: sticky;
             top: 0;
@@ -41,7 +40,6 @@
             letter-spacing: -0.02em;
         }
 
-        /* Hero section */
         .hero {
             text-align: center;
             padding: 80px 24px 60px 24px;
@@ -58,14 +56,6 @@
             margin-bottom: 12px;
         }
 
-        .hero p {
-            font-size: 21px;
-            color: #6e6e73;
-            font-weight: 400;
-            letter-spacing: -0.01em;
-        }
-
-        /* แผนที่ */
         .map-wrapper {
             max-width: 1000px;
             margin: 0 auto 100px auto;
@@ -87,7 +77,7 @@
             overflow: hidden;
         }
 
-        /* Tooltip แบบ Apple (แสดงตอนเอาเมาส์ไปวางบนหมุด) */
+        /* Tooltip แบบ Apple (แสดงด้านล่างหมุด) */
         .leaflet-tooltip {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: saturate(180%) blur(20px);
@@ -99,12 +89,12 @@
             opacity: 1;
         }
 
-        .leaflet-tooltip-top:before {
+        .leaflet-tooltip-bottom:before {
             display: none;
         }
 
         .tooltip-content {
-            width: 240px;
+            width: 220px;
         }
 
         .tooltip-content img {
@@ -130,13 +120,6 @@
             font-size: 12px;
             color: #0071e3;
             font-weight: 500;
-            margin-bottom: 4px;
-        }
-
-        .tooltip-content .desc {
-            font-size: 12px;
-            color: #6e6e73;
-            line-height: 1.4;
             margin-bottom: 6px;
         }
 
@@ -146,7 +129,6 @@
             font-family: 'SF Mono', Monaco, monospace;
         }
 
-        /* Footer */
         .footer {
             text-align: center;
             padding: 30px 24px;
@@ -185,6 +167,15 @@
 
         const places = {{ places | tojson }};
 
+        // ฟังก์ชันแปลงพิกัดให้อยู่ในรูปแบบ Decimal Degree พร้อมสัญลักษณ์องศาและทิศ
+        function formatDD(lat, lng) {
+            const latDir = lat >= 0 ? 'N' : 'S';
+            const lngDir = lng >= 0 ? 'E' : 'W';
+            const latVal = Math.abs(lat).toFixed(4);
+            const lngVal = Math.abs(lng).toFixed(4);
+            return `${latVal}° ${latDir}, ${lngVal}° ${lngDir}`;
+        }
+
         places.forEach(place => {
             const marker = L.marker([place.lat, place.lng]).addTo(map);
             marker.bindTooltip(`
@@ -193,13 +184,12 @@
                     <div class="tooltip-text">
                         <h3>${place.name}</h3>
                         <div class="country">${place.province}</div>
-                        <div class="desc">${place.description}</div>
-                        <div class="coords">📍 ${place.lat.toFixed(4)}, ${place.lng.toFixed(4)}</div>
+                        <div class="coords">📍 ${formatDD(place.lat, place.lng)}</div>
                     </div>
                 </div>
             `, {
-                direction: 'top',
-                offset: [0, -10],
+                direction: 'bottom',
+                offset: [0, 10],
                 opacity: 1,
                 sticky: false
             });
