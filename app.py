@@ -7,7 +7,7 @@ places = [
         "name": "Temple of the Emerald Buddha (วัดพระแก้ว)",
         "province": "Bangkok, Thailand",
         "description": "วัดคู่บ้านคู่เมือง ประดิษฐานพระแก้วมรกต สถาปัตยกรรมงดงามอลังการ",
-        "image": "https://images.unsplash.com/photo-1563492065599-3520f775eeed?w=500",
+        "image": "https://commons.wikimedia.org/wiki/Special:FilePath/Emerald_Buddha_Temple,_Wat_Phra_Kaew,_Bangkok.JPG?width=500",
         "lat": 13.7515,
         "lng": 100.4927
     },
@@ -39,7 +39,7 @@ places = [
         "name": "Leaning Tower of Pisa (หอเอนเมืองปิซ่า)",
         "province": "Pisa, Italy",
         "description": "หอระฆังเอียงชื่อดัง เกิดจากฐานรากที่ไม่มั่นคง กลายเป็นแลนด์มาร์กที่มีเอกลักษณ์ที่สุดในโลก",
-        "image": "https://images.unsplash.com/photo-1531572753322-ad063cecc140?w=500",
+        "image": "https://commons.wikimedia.org/wiki/Special:FilePath/The_Leaning_Tower_of_Pisa_SB.jpeg?width=500",
         "lat": 43.7230,
         "lng": 10.3966
     },
@@ -47,7 +47,7 @@ places = [
         "name": "Big Ben (หอนาฬิกาบิ๊กเบน)",
         "province": "London, United Kingdom",
         "description": "หอนาฬิกาอันเป็นสัญลักษณ์ของกรุงลอนดอน ตั้งอยู่ติดกับอาคารรัฐสภาอังกฤษ",
-        "image": "https://images.unsplash.com/photo-1529655683826-aba9b3e77383?w=500",
+        "image": "https://commons.wikimedia.org/wiki/Special:FilePath/Big_Ben_Elizabeth_Tower_London_2023_01.jpg?width=500",
         "lat": 51.5007,
         "lng": -0.1246
     },
@@ -63,7 +63,7 @@ places = [
         "name": "Statue of Liberty (เทพีเสรีภาพ)",
         "province": "New York, USA",
         "description": "สัญลักษณ์แห่งอิสรภาพและประชาธิปไตย ตั้งอยู่บนเกาะกลางอ่าวนิวยอร์ก",
-        "image": "https://images.unsplash.com/photo-1543716091-a840c05249ec?w=500",
+        "image": "https://commons.wikimedia.org/wiki/Special:FilePath/Statue_of_Liberty,_NY.jpg?width=500",
         "lat": 40.6892,
         "lng": -74.0445
     },
@@ -71,7 +71,7 @@ places = [
         "name": "Angkor Wat (นครวัด)",
         "province": "Siem Reap, Cambodia",
         "description": "ปราสาทหินโบราณที่ใหญ่ที่สุดในโลก สถาปัตยกรรมขอมอันวิจิตรงดงาม มรดกโลกของยูเนสโก",
-        "image": "https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=500",
+        "image": "https://commons.wikimedia.org/wiki/Special:FilePath/Angkor_Wat_with_its_reflection_(cropped).jpg?width=500",
         "lat": 13.4125,
         "lng": 103.8670
     },
