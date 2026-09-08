@@ -2,7 +2,7 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-    <title>แลนด์มาร์กทั่วโลก</title>
+    <title>Landmarks</title>
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -15,64 +15,150 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, sans-serif;
-            background: linear-gradient(135deg, #43cea2 0%, #185a9d 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f7;
+            color: #1d1d1f;
             min-height: 100vh;
-            padding: 40px 20px;
         }
 
-        .header {
+        /* Navbar แบบ Apple */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            padding: 16px 24px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .navbar span {
+            font-size: 17px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        /* Hero section */
+        .hero {
             text-align: center;
-            color: white;
-            margin-bottom: 30px;
+            padding: 80px 24px 60px 24px;
         }
 
-        .header h1 {
-            font-size: 36px;
-            margin-bottom: 10px;
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            background: linear-gradient(135deg, #1d1d1f 0%, #6e6e73 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 12px;
         }
 
-        .header p {
-            font-size: 16px;
-            opacity: 0.9;
+        .hero p {
+            font-size: 21px;
+            color: #6e6e73;
+            font-weight: 400;
+            letter-spacing: -0.01em;
+        }
+
+        /* แผนที่ */
+        .map-wrapper {
+            max-width: 1000px;
+            margin: 0 auto 100px auto;
+            padding: 0 24px;
+        }
+
+        .map-card {
+            background: white;
+            border-radius: 28px;
+            padding: 8px;
+            box-shadow:
+                0 2px 8px rgba(0,0,0,0.04),
+                0 12px 40px rgba(0,0,0,0.08);
         }
 
         #map {
-            max-width: 1100px;
-            height: 420px;
-            margin: 0 auto;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-            z-index: 1;
+            height: 480px;
+            border-radius: 22px;
+            overflow: hidden;
         }
 
-        .popup-content {
-            text-align: center;
+        /* Popup แบบ Apple */
+        .leaflet-popup-content-wrapper {
+            border-radius: 16px;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .leaflet-popup-content {
+            margin: 0;
+            width: 220px !important;
         }
 
         .popup-content img {
             width: 100%;
-            border-radius: 8px;
-            margin-bottom: 6px;
+            height: 130px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .popup-content .popup-text {
+            padding: 12px 14px 14px 14px;
         }
 
         .popup-content h3 {
             font-size: 15px;
-            color: #185a9d;
-            margin-bottom: 4px;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            margin-bottom: 2px;
+        }
+
+        .popup-content p {
+            font-size: 13px;
+            color: #6e6e73;
+        }
+
+        .leaflet-popup-tip {
+            display: none;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px 24px;
+            color: #86868b;
+            font-size: 12px;
+            border-top: 1px solid rgba(0,0,0,0.08);
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>🌍 แลนด์มาร์กทั่วโลก</h1>
-        <p>รวมสถานที่ท่องเที่ยวและแลนด์มาร์กชื่อดังทั่วโลก — กดหมุดบนแผนที่เพื่อดูรายละเอียด</p>
+
+    <div class="navbar">
+        <span>🌍 Landmarks</span>
     </div>
 
-    <div id="map"></div>
+    <div class="hero">
+        <h1>Explore the World</h1>
+        <p>สำรวจแลนด์มาร์กที่งดงามที่สุดในโลก</p>
+    </div>
+
+    <div class="map-wrapper">
+        <div class="map-card">
+            <div id="map"></div>
+        </div>
+    </div>
+
+    <div class="footer">
+        Made with Flask &amp; Leaflet
+    </div>
 
     <script>
-        const map = L.map('map').setView([20, 20], 2);
+        const map = L.map('map', { zoomControl: true }).setView([20, 20], 2);
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; OpenStreetMap contributors'
@@ -85,11 +171,12 @@
             marker.bindPopup(`
                 <div class="popup-content">
                     <img src="${place.image}" alt="${place.name}">
-                    <h3>${place.name}</h3>
-                    <p>${place.province}</p>
+                    <div class="popup-text">
+                        <h3>${place.name}</h3>
+                        <p>${place.province}</p>
+                    </div>
                 </div>
             `);
         });
     </script>
 </body>
-</html>
