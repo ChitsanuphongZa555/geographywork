@@ -116,8 +116,17 @@
             font-size: 12px;
             font-weight: 600;
             letter-spacing: -0.01em;
-            margin-bottom: 3px;
+            margin-bottom: 2px;
             line-height: 1.3;
+            white-space: normal;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .tooltip-content .name-th {
+            font-size: 11px;
+            color: #6e6e73;
+            margin-bottom: 4px;
             white-space: normal;
             word-wrap: break-word;
             overflow-wrap: break-word;
@@ -213,6 +222,7 @@
                     <img src="${place.image}" alt="${place.name}">
                     <div class="tooltip-text">
                         <h3>${place.name}</h3>
+                        <div class="name-th">${place.name_th}</div>
                         <div class="country">${place.province}</div>
                         <div class="coords">📍 ${formatDD(place.lat, place.lng)}</div>
                     </div>
