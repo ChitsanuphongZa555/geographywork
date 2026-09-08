@@ -87,43 +87,63 @@
             overflow: hidden;
         }
 
-        /* Popup แบบ Apple */
-        .leaflet-popup-content-wrapper {
-            border-radius: 16px;
+        /* Tooltip แบบ Apple (แสดงตอนเอาเมาส์ไปวางบนหมุด) */
+        .leaflet-tooltip {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            border: none;
+            border-radius: 14px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
             padding: 0;
-            overflow: hidden;
+            opacity: 1;
         }
 
-        .leaflet-popup-content {
-            margin: 0;
-            width: 220px !important;
+        .leaflet-tooltip-top:before {
+            display: none;
         }
 
-        .popup-content img {
+        .tooltip-content {
+            width: 240px;
+        }
+
+        .tooltip-content img {
             width: 100%;
-            height: 130px;
+            height: 120px;
             object-fit: cover;
             display: block;
+            border-radius: 14px 14px 0 0;
         }
 
-        .popup-content .popup-text {
+        .tooltip-content .tooltip-text {
             padding: 12px 14px 14px 14px;
         }
 
-        .popup-content h3 {
-            font-size: 15px;
+        .tooltip-content h3 {
+            font-size: 14px;
             font-weight: 600;
             letter-spacing: -0.01em;
-            margin-bottom: 2px;
+            margin-bottom: 4px;
         }
 
-        .popup-content p {
-            font-size: 13px;
+        .tooltip-content .country {
+            font-size: 12px;
+            color: #0071e3;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .tooltip-content .desc {
+            font-size: 12px;
             color: #6e6e73;
+            line-height: 1.4;
+            margin-bottom: 6px;
         }
 
-        .leaflet-popup-tip {
-            display: none;
+        .tooltip-content .coords {
+            font-size: 11px;
+            color: #86868b;
+            font-family: 'SF Mono', Monaco, monospace;
         }
 
         /* Footer */
@@ -167,15 +187,23 @@
 
         places.forEach(place => {
             const marker = L.marker([place.lat, place.lng]).addTo(map);
-            marker.bindPopup(`
-                <div class="popup-content">
+            marker.bindTooltip(`
+                <div class="tooltip-content">
                     <img src="${place.image}" alt="${place.name}">
-                    <div class="popup-text">
+                    <div class="tooltip-text">
                         <h3>${place.name}</h3>
-                        <p>${place.province}</p>
+                        <div class="country">${place.province}</div>
+                        <div class="desc">${place.description}</div>
+                        <div class="coords">📍 ${place.lat.toFixed(4)}, ${place.lng.toFixed(4)}</div>
                     </div>
                 </div>
-            `);
+            `, {
+                direction: 'top',
+                offset: [0, -10],
+                opacity: 1,
+                sticky: false
+            });
         });
     </script>
 </body>
+</html>
