@@ -59,7 +59,7 @@
 
         .map-wrapper {
             max-width: 1300px;
-            margin: 0 auto 100px auto;
+            margin: 0 auto 60px auto;
             padding: 0 24px;
         }
 
@@ -145,6 +145,57 @@
             font-size: 9px;
             color: #86868b;
             font-family: 'SF Mono', Monaco, monospace;
+        }
+
+        /* Credits section */
+        .credits-wrapper {
+            max-width: 1300px;
+            margin: 0 auto 60px auto;
+            padding: 0 24px;
+        }
+
+        .credits-card {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow:
+                0 2px 8px rgba(0,0,0,0.04),
+                0 12px 40px rgba(0,0,0,0.08);
+        }
+
+        .credits-card h2 {
+            text-align: center;
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 24px;
+        }
+
+        .credits-list {
+            list-style: none;
+            max-width: 500px;
+            margin: 0 auto;
+            display: grid;
+            gap: 10px;
+        }
+
+        .credits-list li {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: #1d1d1f;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+        }
+
+        .credits-list .num {
+            color: #86868b;
+            margin-right: 8px;
+        }
+
+        .credits-list .no {
+            color: #0071e3;
+            font-weight: 500;
         }
 
         .footer {
@@ -315,6 +366,24 @@
     <div class="map-wrapper">
         <div class="map-card">
             <div id="map"></div>
+        </div>
+    </div>
+
+    <div class="credits-wrapper">
+        <div class="credits-card">
+            <h2>Created by</h2>
+            <ul class="credits-list">
+                <li><span><span class="num">1.</span>ณัฎฐ์ธนัน ชื่นบรรลือสุข</span><span class="no">เลขที่ 3</span></li>
+                <li><span><span class="num">2.</span>ศรณ์ศีล ชูสัตยานนท์</span><span class="no">เลขที่ 15</span></li>
+                <li><span><span class="num">3.</span>ปธานิน ชื่นรัตนกุล</span><span class="no">เลขที่ 17</span></li>
+                <li><span><span class="num">4.</span>วชิรวิทย์ ตันรุ่งเรือง</span><span class="no">เลขที่ 24</span></li>
+                <li><span><span class="num">5.</span>ภาวัช วังส์ไพจิตร</span><span class="no">เลขที่ 30</span></li>
+                <li><span><span class="num">6.</span>แทนไทย เตาไธสง</span><span class="no">เลขที่ 31</span></li>
+                <li><span><span class="num">7.</span>แทนเตชิน จันทรลักษณา</span><span class="no">เลขที่ 32</span></li>
+                <li><span><span class="num">8.</span>ธนกฤต กราพงศ์</span><span class="no">เลขที่ 34</span></li>
+                <li><span><span class="num">9.</span>ปภินวิช ชาตาสุข</span><span class="no">เลขที่ 35</span></li>
+                <li><span><span class="num">10.</span>ชิษณุพงศ์ ทวีโชติกิจเจริญ</span><span class="no">เลขที่ 36</span></li>
+            </ul>
         </div>
     </div>
 
