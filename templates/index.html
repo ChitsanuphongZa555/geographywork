@@ -75,9 +75,10 @@
             height: 650px;
             border-radius: 22px;
             overflow: hidden;
+            cursor: pointer;
         }
 
-        /* Tooltip แบบ Apple */
+        /* Tooltip แบบ Apple (hover) */
         .leaflet-tooltip {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: saturate(180%) blur(20px);
@@ -152,6 +153,152 @@
             font-size: 12px;
             border-top: 1px solid rgba(0,0,0,0.08);
         }
+
+        /* Modal Slideshow — ขนาดพอดีตามสัดส่วน 1440x900 (16:10) */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-box {
+            background: white;
+            border-radius: 24px;
+            width: 100%;
+            max-width: 1125px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* อัตราส่วน 1440:900 = 16:10 ทำให้สไลด์ยืดหด แต่ไม่ขาด/ไม่ล้น */
+        .slide-wrapper {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1440 / 900;
+            overflow: hidden;
+            background: #eee;
+        }
+
+        .slide-track {
+            display: flex;
+            height: 100%;
+            transition: transform 0.35s ease;
+        }
+
+        .slide-track img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .slide-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.85);
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .slide-arrow.prev { left: 12px; }
+        .slide-arrow.next { right: 12px; }
+
+        .slide-dots {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 6px;
+        }
+
+        .slide-dots span {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.6);
+        }
+
+        .slide-dots span.active {
+            background: white;
+        }
+
+        .modal-info {
+            padding: 20px 24px 24px 24px;
+        }
+
+        .modal-info h2 {
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 2px;
+        }
+
+        .modal-info .name-th {
+            font-size: 14px;
+            color: #6e6e73;
+            margin-bottom: 10px;
+        }
+
+        .modal-info .country {
+            display: inline-block;
+            font-size: 12px;
+            color: #0071e3;
+            background: #eaf4ff;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .modal-info .coords {
+            font-size: 12px;
+            color: #86868b;
+            font-family: 'SF Mono', Monaco, monospace;
+        }
     </style>
 </head>
 <body>
@@ -174,16 +321,36 @@
         Made with Flask &amp; Leaflet
     </div>
 
+    <!-- Modal Slideshow -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-box">
+            <button class="modal-close" id="modalClose">✕</button>
+            <div class="slide-wrapper">
+                <div class="slide-track" id="slideTrack"></div>
+                <button class="slide-arrow prev" id="slidePrev">‹</button>
+                <button class="slide-arrow next" id="slideNext">›</button>
+                <div class="slide-dots" id="slideDots"></div>
+            </div>
+            <div class="modal-info">
+                <h2 id="modalName"></h2>
+                <div class="name-th" id="modalNameTh"></div>
+                <div class="country" id="modalCountry"></div>
+                <div class="coords" id="modalCoords"></div>
+            </div>
+        </div>
+    </div>
+
     <script>
         const map = L.map('map', {
             zoomControl: true,
-            dragging: false,
+            dragging: true,
             scrollWheelZoom: false,
             doubleClickZoom: false,
             touchZoom: false,
             boxZoom: false,
-            keyboard: false
-        }).setView([20, 20], 2.4);
+            keyboard: false,
+            zoomSnap: 0
+        }).setView([20, 20], 2.5);
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; OpenStreetMap contributors'
@@ -222,12 +389,76 @@
             return { direction, offset };
         }
 
+        // ===== Modal Slideshow =====
+        const modalOverlay = document.getElementById('modalOverlay');
+        const modalClose = document.getElementById('modalClose');
+        const slideTrack = document.getElementById('slideTrack');
+        const slideDots = document.getElementById('slideDots');
+        const slidePrev = document.getElementById('slidePrev');
+        const slideNext = document.getElementById('slideNext');
+        const modalName = document.getElementById('modalName');
+        const modalNameTh = document.getElementById('modalNameTh');
+        const modalCountry = document.getElementById('modalCountry');
+        const modalCoords = document.getElementById('modalCoords');
+
+        let currentSlide = 0;
+        let totalSlides = 0;
+
+        function openModal(place) {
+            const images = place.images && place.images.length ? place.images : [place.image];
+
+            slideTrack.innerHTML = images.map(src => `<img src="${src}" alt="${place.name}">`).join('');
+            slideDots.innerHTML = images.map((_, i) => `<span class="${i === 0 ? 'active' : ''}"></span>`).join('');
+
+            modalName.textContent = place.name;
+            modalNameTh.textContent = place.name_th;
+            modalCountry.textContent = '📍 ' + place.province;
+            modalCoords.textContent = formatDD(place.lat, place.lng);
+
+            currentSlide = 0;
+            totalSlides = images.length;
+            updateSlidePosition();
+
+            slidePrev.style.display = totalSlides > 1 ? 'flex' : 'none';
+            slideNext.style.display = totalSlides > 1 ? 'flex' : 'none';
+
+            modalOverlay.classList.add('active');
+        }
+
+        function closeModal() {
+            modalOverlay.classList.remove('active');
+        }
+
+        function updateSlidePosition() {
+            slideTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
+            const dots = slideDots.querySelectorAll('span');
+            dots.forEach((dot, i) => dot.classList.toggle('active', i === currentSlide));
+        }
+
+        slidePrev.addEventListener('click', () => {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateSlidePosition();
+        });
+
+        slideNext.addEventListener('click', () => {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateSlidePosition();
+        });
+
+        modalClose.addEventListener('click', closeModal);
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) closeModal();
+        });
+
+        // ===== สร้างหมุดทุกจุด =====
         places.forEach(place => {
             const marker = L.marker([place.lat, place.lng]).addTo(map);
 
+            const tooltipImg = (place.images && place.images[0]) || place.image;
+
             const html = `
                 <div class="tooltip-content">
-                    <img src="${place.image}" alt="${place.name}">
+                    <img src="${tooltipImg}" alt="${place.name}">
                     <div class="tooltip-text">
                         <h3>${place.name}</h3>
                         <div class="name-th">${place.name_th}</div>
@@ -245,6 +476,8 @@
                 opacity: 1,
                 sticky: false
             });
+
+            marker.on('click', () => openModal(place));
         });
     </script>
 </body>
