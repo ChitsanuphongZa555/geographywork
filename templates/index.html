@@ -351,6 +351,13 @@
             color: #86868b;
             font-family: 'SF Mono', Monaco, monospace;
         }
+
+        .modal-info .credit {
+            font-size: 11px;
+            color: #a1a1a6;
+            margin-top: 8px;
+            font-style: italic;
+        }
     </style>
 </head>
 <body>
@@ -406,6 +413,7 @@
                 <div class="name-th" id="modalNameTh"></div>
                 <div class="country" id="modalCountry"></div>
                 <div class="coords" id="modalCoords"></div>
+                <div class="credit" id="modalCredit"></div>
             </div>
         </div>
     </div>
@@ -470,6 +478,7 @@
         const modalNameTh = document.getElementById('modalNameTh');
         const modalCountry = document.getElementById('modalCountry');
         const modalCoords = document.getElementById('modalCoords');
+        const modalCredit = document.getElementById('modalCredit');
 
         let currentSlide = 0;
         let totalSlides = 0;
@@ -484,6 +493,7 @@
             modalNameTh.textContent = place.name_th;
             modalCountry.textContent = '📍 ' + place.province;
             modalCoords.textContent = formatDD(place.lat, place.lng);
+            modalCredit.textContent = place.photo_credit || '';
 
             currentSlide = 0;
             totalSlides = images.length;
